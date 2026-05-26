@@ -1,0 +1,60 @@
+sector,energy_usage
+Street Lighting,12000
+Traffic Signals,8000
+Metro Rail,45000
+Public Transport,38000
+Water Supply,22000
+Waste Management,17000
+Smart Parking,9000
+Airport Operations,52000
+Railway Stations,31000
+Bus Depots,26000
+Government Offices,14000
+Hospitals,29000
+Schools,18000
+Universities,24000
+Shopping Malls,47000
+IT Parks,55000
+Residential Complexes,33000
+Industrial Zones,61000
+Solar Farms,15000
+Wind Turbines,11000
+Hydroelectric Plants,28000
+Data Centers,49000
+Telecommunication Towers,21000
+Police Stations,7000
+Fire Stations,6500
+Sports Complexes,19500
+Stadiums,36000
+Hotels,25000
+Restaurants,13000
+Cold Storage Units,17500
+Electric Vehicle Charging,42000
+Battery Storage Systems,30000
+Recycling Centers,10000
+Construction Sites,27000
+Manufacturing Plants,59000
+Textile Industries,34000
+Pharmaceutical Units,41000
+Chemical Industries,62000
+Oil Refineries,73000
+Logistics Hubs,39000
+Warehouses,23000
+Retail Markets,14500
+Entertainment Zones,16500
+Cloud Infrastructure,51000
+AI Research Labs,28000
+Biotechnology Labs,31000
+Food Processing Units,26000
+Airport Cargo,37000
+Shipping Ports,68000
+Mining Sites,72000
+Agriculture Irrigation,20000
+Smart Homes,15500
+Public WiFi Systems,8500
+Cyber Security Centers,12000
+Disaster Management Centers,9000
+Tourism Operations,17500
+Banking Operations,19500
+Financial Data Centers,44000
+Import Export Facilities,36000

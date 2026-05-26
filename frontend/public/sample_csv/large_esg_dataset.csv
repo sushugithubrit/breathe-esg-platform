@@ -1,0 +1,62 @@
+department,emissions
+Electricity,15000
+Solar,5000
+Diesel,12000
+Wind,3000
+Hydro,7000
+Transport,22000
+Flights,28000
+Manufacturing,35000
+Packaging,14000
+Logistics,26000
+Water,9000
+Cooling,11000
+Heating,18000
+IT Services,6000
+Cloud Infrastructure,24000
+Data Center,31000
+Warehousing,17000
+Retail Operations,13000
+Procurement,21000
+Recycling,4000
+Construction,29000
+Maintenance,10000
+Chemical Usage,33000
+Office Energy,8000
+Fuel Consumption,27000
+Mining Operations,42000
+Agriculture,16000
+Shipping,37000
+Business Travel,25000
+Food Production,19000
+Vehicle Fleet,32000
+Plastic Waste,15000
+Paper Usage,7000
+HVAC Systems,14000
+Research Labs,23000
+Customer Support,5000
+Manufacturing Unit A,34000
+Manufacturing Unit B,36000
+Manufacturing Unit C,39000
+Regional Office East,9000
+Regional Office West,8500
+Regional Office South,9200
+Regional Office North,8800
+Battery Storage,12000
+Renewable Energy Plant,41000
+Smart Grid Systems,28000
+Server Maintenance,13000
+Automation Systems,24000
+Cold Storage,18000
+Import Operations,27000
+Export Operations,30000
+Supply Chain,26000
+Vendor Management,15000
+Safety Operations,7000
+Testing Facility,11000
+Training Department,6000
+Marketing Division,5000
+Human Resources,4000
+Finance Department,4500
+Legal Department,3500
+Executive Operations,9500
