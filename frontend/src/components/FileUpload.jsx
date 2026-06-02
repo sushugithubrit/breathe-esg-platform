@@ -34,18 +34,35 @@ function FileUpload() {
         }
       );
 
-      /* Save analytics dynamically */
+      /* Save analytics */
 
       localStorage.setItem(
         "analyticsData",
         JSON.stringify(response.data.analytics)
       );
 
-      /* Save suspicious records dynamically */
+      /* Save suspicious records */
 
       localStorage.setItem(
         "suspiciousRecords",
         JSON.stringify(response.data.suspicious_records)
+      );
+
+      /* Save upload history */
+
+      const existingHistory =
+        JSON.parse(localStorage.getItem("uploadHistory")) || [];
+
+      const newUpload = {
+        fileName: file.name,
+        uploadTime: new Date().toLocaleString(),
+      };
+
+      existingHistory.unshift(newUpload);
+
+      localStorage.setItem(
+        "uploadHistory",
+        JSON.stringify(existingHistory)
       );
 
       setMessage(response.data.message);

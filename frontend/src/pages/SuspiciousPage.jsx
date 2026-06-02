@@ -1,14 +1,45 @@
+import { useState } from "react";
+
 function SuspiciousPage() {
 
-  const suspiciousRecords =
-    JSON.parse(localStorage.getItem("suspiciousRecords")) || [];
+  const [records, setRecords] = useState(
+    JSON.parse(localStorage.getItem("suspiciousRecords")) || []
+  );
+
+  const approveRecord = (index) => {
+
+    const updated = [...records];
+
+    updated[index].status = "APPROVED";
+
+    setRecords(updated);
+
+    localStorage.setItem(
+      "suspiciousRecords",
+      JSON.stringify(updated)
+    );
+  };
+
+  const flagRecord = (index) => {
+
+    const updated = [...records];
+
+    updated[index].status = "FLAGGED";
+
+    setRecords(updated);
+
+    localStorage.setItem(
+      "suspiciousRecords",
+      JSON.stringify(updated)
+    );
+  };
 
   return (
 
     <div className="p-6">
 
       <h1 className="text-3xl font-bold mb-6">
-        Suspicious Records
+        Review & Approve Records
       </h1>
 
       <div className="bg-white rounded-2xl shadow p-6 overflow-x-auto">
@@ -35,6 +66,10 @@ function SuspiciousPage() {
                 Status
               </th>
 
+              <th className="text-left py-3">
+                Actions
+              </th>
+
             </tr>
 
           </thead>
@@ -42,9 +77,9 @@ function SuspiciousPage() {
           <tbody>
 
             {
-              suspiciousRecords.length > 0 ? (
+              records.length > 0 ? (
 
-                suspiciousRecords.map((item, index) => (
+                records.map((item, index) => (
 
                   <tr
                     key={index}
@@ -63,11 +98,42 @@ function SuspiciousPage() {
                       {item.value}
                     </td>
 
-                    <td className="py-4 text-red-600 font-semibold">
-                      {item.status}
+                    <td className="py-4">
+
+                      <span
+                        className={
+                          item.status === "APPROVED"
+                            ? "text-green-600 font-semibold"
+                            : item.status === "FLAGGED"
+                            ? "text-red-600 font-semibold"
+                            : "text-yellow-600 font-semibold"
+                        }
+                      >
+                        {item.status}
+                      </span>
+
+                    </td>
+
+                    <td className="py-4 flex gap-2">
+
+                      <button
+                        onClick={() => approveRecord(index)}
+                        className="bg-green-600 text-white px-3 py-1 rounded"
+                      >
+                        Approve
+                      </button>
+
+                      <button
+                        onClick={() => flagRecord(index)}
+                        className="bg-red-600 text-white px-3 py-1 rounded"
+                      >
+                        Flag
+                      </button>
+
                     </td>
 
                   </tr>
+
                 ))
 
               ) : (
@@ -75,7 +141,7 @@ function SuspiciousPage() {
                 <tr>
 
                   <td
-                    colSpan="4"
+                    colSpan="5"
                     className="text-center py-6 text-gray-500"
                   >
 
@@ -84,6 +150,7 @@ function SuspiciousPage() {
                   </td>
 
                 </tr>
+
               )
             }
 

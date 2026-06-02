@@ -9,7 +9,7 @@ import DashboardPage from "./pages/DashboardPage";
 import UploadPage from "./pages/UploadPage";
 import AnalyticsPage from "./pages/AnalyticsPage";
 import SuspiciousPage from "./pages/SuspiciousPage";
-
+import UploadHistoryPage from "./pages/UploadHistoryPage";
 
 function App() {
 
@@ -57,10 +57,16 @@ function App() {
               Suspicious Records
             </Link>
 
+            <Link
+              to="/history"
+              className="block bg-white/10 hover:bg-white/20 rounded-xl px-4 py-3 transition-all"
+            >
+              Upload History
+            </Link>
+
           </div>
 
         </div>
-
 
         {/* PAGE CONTENT */}
 
@@ -86,6 +92,11 @@ function App() {
             <Route
               path="/suspicious"
               element={<SuspiciousPage />}
+            />
+
+            <Route
+              path="/history"
+              element={<UploadHistoryPage />}
             />
 
           </Routes>

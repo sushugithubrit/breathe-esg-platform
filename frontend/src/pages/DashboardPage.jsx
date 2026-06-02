@@ -1,271 +1,270 @@
 import {
-  TrendingUp,
-  AlertTriangle,
   Database,
   ShieldCheck,
-  Activity,
+  AlertTriangle,
+  CheckCircle,
+  Clock,
+  TrendingUp,
   Globe,
 } from "lucide-react";
 
 function DashboardPage() {
-
   const analyticsData =
     JSON.parse(localStorage.getItem("analyticsData")) || [];
 
   const suspiciousRecords =
     JSON.parse(localStorage.getItem("suspiciousRecords")) || [];
 
-  /* Dynamic calculations */
-
   const totalValue = analyticsData.reduce(
-    (total, item) => total + item.value,
+    (total, item) => total + Number(item.value || 0),
     0
   );
 
   const totalRecords = analyticsData.length;
 
+  const approvedRecords = suspiciousRecords.filter(
+    (item) => item.status === "APPROVED"
+  ).length;
+
+  const flaggedRecords = suspiciousRecords.filter(
+    (item) => item.status === "FLAGGED"
+  ).length;
+
+  const pendingRecords = suspiciousRecords.filter(
+    (item) =>
+      item.status !== "APPROVED" &&
+      item.status !== "FLAGGED"
+  ).length;
+
+  const esgScore =
+    totalRecords > 0
+      ? Math.max(50, 100 - suspiciousRecords.length * 2)
+      : 0;
+
+  const complianceScore =
+    totalRecords > 0
+      ? Math.max(50, 100 - flaggedRecords * 3)
+      : 0;
+
   return (
-
     <div>
-
       {/* HEADER */}
 
       <div className="flex items-center justify-between mb-10">
-
         <div>
-
           <h1 className="text-5xl font-bold">
             ESG Intelligence Hub
           </h1>
 
           <p className="text-gray-500 mt-3 text-lg">
-            Real-time sustainability ingestion and monitoring platform
+            Enterprise Sustainability Monitoring Platform
           </p>
-
         </div>
 
         <div className="bg-black text-white px-6 py-3 rounded-2xl shadow-lg">
-
-          ESG Score: 87%
-
+          ESG Score: {esgScore}%
         </div>
-
       </div>
 
-      {/* TOP METRICS */}
+      {/* TOP CARDS */}
 
       <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-6">
 
-        {/* CARD 1 */}
-
-        <div className="bg-gradient-to-r from-black to-gray-800 text-white rounded-3xl p-6 shadow-xl">
-
-          <div className="flex items-center justify-between">
-
-            <div>
-
-              <p className="text-gray-300">
-                Total Value
-              </p>
-
-              <h2 className="text-4xl font-bold mt-4">
-                {totalValue}
-              </h2>
-
-            </div>
-
-            <Database className="w-10 h-10" />
-
-          </div>
-
-        </div>
-
-        {/* CARD 2 */}
-
         <div className="bg-white rounded-3xl p-6 shadow-sm">
-
           <div className="flex items-center justify-between">
-
             <div>
-
               <p className="text-gray-500">
-                ESG Compliance
-              </p>
-
-              <h2 className="text-4xl font-bold mt-4 text-green-600">
-                92%
-              </h2>
-
-            </div>
-
-            <ShieldCheck className="w-10 h-10 text-green-600" />
-
-          </div>
-
-        </div>
-
-        {/* CARD 3 */}
-
-        <div className="bg-white rounded-3xl p-6 shadow-sm">
-
-          <div className="flex items-center justify-between">
-
-            <div>
-
-              <p className="text-gray-500">
-                Suspicious Records
-              </p>
-
-              <h2 className="text-4xl font-bold mt-4 text-red-500">
-                {suspiciousRecords.length}
-              </h2>
-
-            </div>
-
-            <AlertTriangle className="w-10 h-10 text-red-500" />
-
-          </div>
-
-        </div>
-
-        {/* CARD 4 */}
-
-        <div className="bg-white rounded-3xl p-6 shadow-sm">
-
-          <div className="flex items-center justify-between">
-
-            <div>
-
-              <p className="text-gray-500">
-                Uploaded Records
+                Total Records
               </p>
 
               <h2 className="text-4xl font-bold mt-4 text-blue-600">
                 {totalRecords}
               </h2>
-
             </div>
 
-            <Activity className="w-10 h-10 text-blue-600" />
-
+            <Database className="w-10 h-10 text-blue-600" />
           </div>
+        </div>
 
+        <div className="bg-white rounded-3xl p-6 shadow-sm">
+          <div className="flex items-center justify-between">
+            <div>
+              <p className="text-gray-500">
+                Approved Records
+              </p>
+
+              <h2 className="text-4xl font-bold mt-4 text-green-600">
+                {approvedRecords}
+              </h2>
+            </div>
+
+            <CheckCircle className="w-10 h-10 text-green-600" />
+          </div>
+        </div>
+
+        <div className="bg-white rounded-3xl p-6 shadow-sm">
+          <div className="flex items-center justify-between">
+            <div>
+              <p className="text-gray-500">
+                Flagged Records
+              </p>
+
+              <h2 className="text-4xl font-bold mt-4 text-red-600">
+                {flaggedRecords}
+              </h2>
+            </div>
+
+            <AlertTriangle className="w-10 h-10 text-red-600" />
+          </div>
+        </div>
+
+        <div className="bg-white rounded-3xl p-6 shadow-sm">
+          <div className="flex items-center justify-between">
+            <div>
+              <p className="text-gray-500">
+                Pending Reviews
+              </p>
+
+              <h2 className="text-4xl font-bold mt-4 text-yellow-500">
+                {pendingRecords}
+              </h2>
+            </div>
+
+            <Clock className="w-10 h-10 text-yellow-500" />
+          </div>
+        </div>
+      </div>
+
+      {/* SECOND ROW */}
+
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mt-8">
+
+        <div className="bg-gradient-to-r from-black to-gray-800 text-white rounded-3xl p-8 shadow-xl">
+          <div className="flex items-center justify-between">
+            <div>
+              <p className="text-gray-300">
+                Total ESG Value
+              </p>
+
+              <h2 className="text-5xl font-bold mt-4">
+                {totalValue}
+              </h2>
+            </div>
+
+            <TrendingUp className="w-12 h-12" />
+          </div>
+        </div>
+
+        <div className="bg-white rounded-3xl p-8 shadow-sm">
+          <div className="flex items-center justify-between">
+            <div>
+              <p className="text-gray-500">
+                Compliance Score
+              </p>
+
+              <h2 className="text-5xl font-bold mt-4 text-green-600">
+                {complianceScore}%
+              </h2>
+            </div>
+
+            <ShieldCheck className="w-12 h-12 text-green-600" />
+          </div>
         </div>
 
       </div>
 
-      {/* INSIGHTS SECTION */}
+      {/* REVIEW STATUS */}
 
-      <div className="grid grid-cols-1 xl:grid-cols-3 gap-6 mt-10">
+      <div className="grid grid-cols-1 xl:grid-cols-2 gap-6 mt-8">
 
-        {/* MAIN INSIGHT */}
+        <div className="bg-white rounded-3xl p-8 shadow-sm">
+          <h2 className="text-3xl font-bold mb-6">
+            Review Progress
+          </h2>
 
-        <div className="xl:col-span-2 bg-white rounded-3xl p-8 shadow-sm">
-
-          <div className="flex items-center justify-between mb-8">
+          <div className="space-y-5">
 
             <div>
-
-              <h2 className="text-3xl font-bold">
-                Sustainability Insights
-              </h2>
-
-              <p className="text-gray-500 mt-2">
-                AI-powered ESG anomaly monitoring
+              <p className="font-medium">
+                Approved Records
               </p>
 
+              <div className="w-full bg-gray-200 rounded-full h-4 mt-2">
+                <div
+                  className="bg-green-500 h-4 rounded-full"
+                  style={{
+                    width: `${
+                      totalRecords > 0
+                        ? (approvedRecords / totalRecords) * 100
+                        : 0
+                    }%`,
+                  }}
+                ></div>
+              </div>
             </div>
 
-            <TrendingUp className="w-10 h-10 text-green-600" />
-
-          </div>
-
-          <div className="space-y-6">
-
-            <div className="bg-gray-100 rounded-2xl p-6">
-
-              <h3 className="text-xl font-semibold">
-                Uploaded Data Analysis
-              </h3>
-
-              <p className="text-gray-600 mt-2">
-                {totalRecords} records processed successfully.
+            <div>
+              <p className="font-medium">
+                Flagged Records
               </p>
 
-            </div>
-
-            <div className="bg-red-50 rounded-2xl p-6 border border-red-100">
-
-              <h3 className="text-xl font-semibold text-red-600">
-                Suspicious Records Detected
-              </h3>
-
-              <p className="text-gray-600 mt-2">
-                {suspiciousRecords.length} suspicious records found.
-              </p>
-
+              <div className="w-full bg-gray-200 rounded-full h-4 mt-2">
+                <div
+                  className="bg-red-500 h-4 rounded-full"
+                  style={{
+                    width: `${
+                      totalRecords > 0
+                        ? (flaggedRecords / totalRecords) * 100
+                        : 0
+                    }%`,
+                  }}
+                ></div>
+              </div>
             </div>
 
           </div>
-
         </div>
-
-        {/* SIDE PANEL */}
 
         <div className="bg-black text-white rounded-3xl p-8 shadow-xl">
 
-          <div className="flex items-center justify-between mb-8">
-
-            <h2 className="text-2xl font-bold">
+          <div className="flex items-center justify-between mb-6">
+            <h2 className="text-3xl font-bold">
               Global ESG Status
             </h2>
 
-            <Globe className="w-8 h-8" />
-
+            <Globe className="w-10 h-10" />
           </div>
 
           <div className="space-y-6">
 
             <div>
-
               <p className="text-gray-400">
-                Carbon Neutrality
+                ESG Score
               </p>
 
-              <div className="w-full bg-gray-700 rounded-full h-3 mt-3">
-
-                <div className="bg-green-500 h-3 rounded-full w-[78%]"></div>
-
-              </div>
-
+              <h3 className="text-4xl font-bold mt-2">
+                {esgScore}%
+              </h3>
             </div>
 
             <div>
-
               <p className="text-gray-400">
-                Renewable Energy Usage
+                Compliance
               </p>
 
-              <div className="w-full bg-gray-700 rounded-full h-3 mt-3">
-
-                <div className="bg-blue-500 h-3 rounded-full w-[65%]"></div>
-
-              </div>
-
+              <h3 className="text-4xl font-bold mt-2">
+                {complianceScore}%
+              </h3>
             </div>
 
             <div>
-
               <p className="text-gray-400">
-                Audit Completion
+                Suspicious Records
               </p>
 
-              <div className="w-full bg-gray-700 rounded-full h-3 mt-3">
-
-                <div className="bg-yellow-400 h-3 rounded-full w-[88%]"></div>
-
-              </div>
-
+              <h3 className="text-4xl font-bold mt-2 text-red-400">
+                {suspiciousRecords.length}
+              </h3>
             </div>
 
           </div>
@@ -273,7 +272,6 @@ function DashboardPage() {
         </div>
 
       </div>
-
     </div>
   );
 }
